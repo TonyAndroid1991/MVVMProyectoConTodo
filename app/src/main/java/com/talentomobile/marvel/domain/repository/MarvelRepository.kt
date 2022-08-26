@@ -5,5 +5,5 @@ import com.talentomobile.marvel.data.utils.Resource
 
 interface MarvelRepository {
 
-    suspend fun getAllCharacters(): Resource<AllCharacters>
+    suspend fun getAllCharacters(limit: Int): Resource<AllCharacters>
 }

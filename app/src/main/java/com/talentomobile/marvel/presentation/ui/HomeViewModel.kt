@@ -13,8 +13,8 @@ class HomeViewModel(private val getAllCharactersUseCase: GetAllCharactersUseCase
     private val _getAllCharactersLiveData: MutableLiveData<Resource<AllCharacters>> = MutableLiveData()
     val getAllCharactersLiveData = _getAllCharactersLiveData
 
-    fun getAllCharacters() = viewModelScope.launch {
+    fun getAllCharacters(limit: Int) = viewModelScope.launch {
         _getAllCharactersLiveData.postValue(Resource.Loading())
-        _getAllCharactersLiveData.postValue(getAllCharactersUseCase.getAllCharacters())
+        _getAllCharactersLiveData.postValue(getAllCharactersUseCase.getAllCharacters(limit))
     }
 }

@@ -7,7 +7,7 @@ import retrofit2.Response
 
 class MarvelRemoteDataSourceImpl(private val apiService: ApiService) : MarvelRemoteDataSource {
 
-    override suspend fun getAllCharactersFromApi(): Response<AllCharacters> {
-        return  apiService.getAllMarvelCharacters()
+    override suspend fun getAllCharactersFromApi(limit: Int): Response<AllCharacters> {
+        return  apiService.getAllMarvelCharacters(limit)
     }
 }

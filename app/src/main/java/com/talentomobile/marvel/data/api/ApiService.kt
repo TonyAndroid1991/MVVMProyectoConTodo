@@ -13,10 +13,9 @@ import javax.crypto.Cipher.PUBLIC_KEY
 
 interface ApiService {
 
-
-
     @GET("characters")
     suspend fun getAllMarvelCharacters(
+        @Query("limit") limit: Int,
         @Query("apikey") api_key: String = BuildConfig.API_KEY,
         @Query("ts") ts: String = Constants.timeStamp,
         @Query("hash") hash: String = Constants.hash(),

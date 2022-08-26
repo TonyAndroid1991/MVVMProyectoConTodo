@@ -7,12 +7,12 @@ import com.talentomobile.marvel.domain.repository.MarvelRepository
 
 class MarvelRepositoryImpl(private val marvelRemoteDataSource: MarvelRemoteDataSource) : MarvelRepository {
 
-    override suspend fun getAllCharacters(): Resource<AllCharacters> {
-        return getAllCharactersFromApi()
+    override suspend fun getAllCharacters(limit: Int): Resource<AllCharacters> {
+        return getAllCharactersFromApi(limit)
     }
 
-    suspend fun getAllCharactersFromApi(): Resource<AllCharacters> {
-        val response = marvelRemoteDataSource.getAllCharactersFromApi()
+    private suspend fun getAllCharactersFromApi(limit: Int): Resource<AllCharacters> {
+        val response = marvelRemoteDataSource.getAllCharactersFromApi(limit)
 
         if (response.isSuccessful) {
             response?.body()?.let { allCharacters ->

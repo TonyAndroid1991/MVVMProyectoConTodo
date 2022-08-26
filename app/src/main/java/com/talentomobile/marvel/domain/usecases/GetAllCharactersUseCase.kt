@@ -6,7 +6,7 @@ import com.talentomobile.marvel.domain.repository.MarvelRepository
 
 class GetAllCharactersUseCase(private val repository: MarvelRepository) {
 
-    suspend fun getAllCharacters(): Resource<AllCharacters> {
-        return repository.getAllCharacters()
+    suspend fun getAllCharacters(limit: Int): Resource<AllCharacters> {
+        return repository.getAllCharacters(limit)
     }
 }

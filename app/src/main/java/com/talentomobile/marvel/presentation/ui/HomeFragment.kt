@@ -14,6 +14,8 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
+    val limit = 100
+
     companion object {
         private const val TAG = "HomeFragmentFragment"
     }
@@ -33,7 +35,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private fun getResponse() {
 
         /**TODO check if is better to do these verifications on viewmodel and here only get the info*/
-        viewModel.getAllCharacters()
+
+        viewModel.getAllCharacters(limit)
         viewModel.getAllCharactersLiveData.observe(viewLifecycleOwner) { allCharactersResponse ->
 
 
