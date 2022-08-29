@@ -11,7 +11,7 @@ data class Data(
     @SerializedName("offset")
     val offset: Int,
     @SerializedName("results")
-    val results: List<Result>,
+    val marvelCharacters: List<MarvelCharacter>,
     @SerializedName("total")
     val total: Int
 )

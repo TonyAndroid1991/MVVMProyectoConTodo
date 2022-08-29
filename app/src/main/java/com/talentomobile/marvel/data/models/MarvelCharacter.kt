@@ -1,15 +1,18 @@
 package com.talentomobile.marvel.data.models
 
-
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
-data class Result(
+@Entity(tableName = "marvel_characters")
+data class MarvelCharacter(
     @SerializedName("comics")
     val comics: Comics,
     @SerializedName("description")
     val description: String,
     @SerializedName("events")
     val events: Events,
+    @PrimaryKey(autoGenerate = true)
     @SerializedName("id")
     val id: Int,
     @SerializedName("modified")
@@ -23,7 +26,5 @@ data class Result(
     @SerializedName("stories")
     val stories: Stories,
     @SerializedName("thumbnail")
-    val thumbnail: Thumbnail,
-    @SerializedName("urls")
-    val urls: List<Url>
+    val thumbnail: Thumbnail
 )

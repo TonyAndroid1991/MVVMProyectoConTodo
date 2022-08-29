@@ -1,7 +1,6 @@
 package com.talentomobile.marvel.presentation.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -14,7 +13,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
-    val limit = 100
+    private val limit = 100
 
     companion object {
         private const val TAG = "HomeFragmentFragment"
@@ -33,9 +32,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     private fun getResponse() {
-
-        /**TODO check if is better to do these verifications on viewmodel and here only get the info*/
-
         viewModel.getAllCharacters(limit)
         viewModel.getAllCharactersLiveData.observe(viewLifecycleOwner) { allCharactersResponse ->
 
@@ -48,18 +44,17 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 is Resource.Success -> {
                     allCharactersResponse.data.let { allCharacters ->
                         // hide loading bar
-                        allCharacters?.data?.let { data ->
-                            Log.i(TAG, "getResponse: ${data.results[0].id} ===")
-                            Log.i(TAG, "getResponse: ${data.results[0].name} ===")
-                            Log.i(TAG, "getResponse: ${data.results.size} ===")
-                        }
                     }
                 }
 
                 is Resource.Error -> {
                     //hide loading bar
                     allCharactersResponse.message?.let {
-                        Toast.makeText(activity, "An error of type $it", Toast.LENGTH_LONG).show()
+                        Toast.makeText(
+                            activity,
+                            resources.getString(R.string.error_no_data_available),
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
                 }
             }

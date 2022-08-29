@@ -3,7 +3,7 @@ package com.talentomobile.marvel.data.models
 
 import com.google.gson.annotations.SerializedName
 
-data class AllCharacters(
+data class AllCharactersResponse(
     @SerializedName("attributionHTML")
     val attributionHTML: String,
     @SerializedName("attributionText")
