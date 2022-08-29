@@ -10,6 +10,7 @@ class Constants {
     companion object {
         val timeStamp = Timestamp(System.currentTimeMillis()).time.toString()
         const val OFFSET = "0"
+        const val LIMIT = 100
 
         fun hash(): String {
             val input = "$timeStamp${BuildConfig.MY_PRIVATE_KEY}${BuildConfig.API_KEY}"

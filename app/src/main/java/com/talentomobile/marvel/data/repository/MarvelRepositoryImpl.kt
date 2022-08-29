@@ -11,39 +11,22 @@ class MarvelRepositoryImpl(
     private val marvelLocalDataSource: MarvelLocalDataSource
 ) : MarvelRepository {
 
-    override suspend fun getAllCharacters(limit: Int): Resource<List<MarvelCharacter>> {
-        val marvelCharacters = getCharactersFromDataBase(limit)
-
-        if (marvelCharacters.isNotEmpty()) {
-            return Resource.Success(marvelCharacters)
-        }
-        return Resource.Error()
+    override suspend fun getAllCharacters(): Resource<List<MarvelCharacter>> {
+        return getAllCharactersFromApi()
     }
 
-
-    private suspend fun getCharactersFromDataBase(limit: Int): List<MarvelCharacter> {
-
-        var marvelCharacters = marvelLocalDataSource.getAllCharactersFromDB()
-
-        if (marvelCharacters.isNotEmpty()) {
-            return marvelCharacters
-        } else {
-            marvelCharacters = getAllCharactersFromApi(limit)
-            marvelLocalDataSource.saveCharactersToDB(marvelCharacters)
-        }
-        return marvelCharacters
+     override suspend fun getCharactersFromDataBase(): List<MarvelCharacter> {
+       return marvelLocalDataSource.getAllCharactersFromDB()
     }
 
-
-    private suspend fun getAllCharactersFromApi(limit: Int): List<MarvelCharacter> {
-        var marvelCharacters: List<MarvelCharacter> = listOf()
-        val response = marvelRemoteDataSource.getAllCharactersFromApi(limit)
-
+    private suspend fun getAllCharactersFromApi(): Resource<List<MarvelCharacter>> {
+        val response = marvelRemoteDataSource.getAllCharactersFromApi()
         if (response.isSuccessful) {
             response.body()?.let { allCharacters ->
-                marvelCharacters = allCharacters.data.marvelCharacters
+                marvelLocalDataSource.saveCharactersToDB(allCharacters.data.marvelCharacters)
+                return Resource.Success(allCharacters.data.marvelCharacters)
             }
         }
-        return marvelCharacters
+        return Resource.Error()
     }
 }

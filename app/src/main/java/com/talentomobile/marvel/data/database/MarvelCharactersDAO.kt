@@ -6,6 +6,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.talentomobile.marvel.data.models.MarvelCharacter
 
+
 @Dao
 interface MarvelCharactersDAO {
 
