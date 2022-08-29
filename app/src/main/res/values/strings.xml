@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">My Application</string>
     <string name="error_no_data_available">No data was found</string>
+    <string name="error_no_internet_available">No Internet connection, please verify connectivity</string>
 </resources>

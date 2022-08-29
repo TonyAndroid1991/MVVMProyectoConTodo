@@ -4,5 +4,5 @@ import com.talentomobile.marvel.data.models.AllCharactersResponse
 import retrofit2.Response
 
 interface MarvelRemoteDataSource {
-    suspend fun getAllCharactersFromApi(limit: Int): Response<AllCharactersResponse>
+    suspend fun getAllCharactersFromApi(): Response<AllCharactersResponse>
 }
