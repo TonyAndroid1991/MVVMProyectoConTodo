@@ -9,5 +9,18 @@
         android:id="@+id/homeFragmentFragment"
         android:name="com.talentomobile.marvel.presentation.ui.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragmentFragment_to_marvelCharacterDetailFragment"
+            app:destination="@id/marvelCharacterDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/marvelCharacterDetailFragment"
+        android:name="com.talentomobile.marvel.presentation.ui.MarvelCharacterDetailFragment"
+        android:label="fragment_marvel_character_detail"
+        tools:layout="@layout/fragment_marvel_character_detail" >
+        <argument
+            android:name="selected_character"
+            app:argType="com.talentomobile.marvel.data.models.MarvelCharacter" />
+    </fragment>
 </navigation>

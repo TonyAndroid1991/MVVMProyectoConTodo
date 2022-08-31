@@ -3,6 +3,7 @@ package com.talentomobile.marvel.data.models
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 @Entity(tableName = "marvel_characters")
 data class MarvelCharacter(
@@ -27,4 +28,4 @@ data class MarvelCharacter(
     val stories: Stories,
     @SerializedName("thumbnail")
     val thumbnail: Thumbnail
-)
+) : Serializable
