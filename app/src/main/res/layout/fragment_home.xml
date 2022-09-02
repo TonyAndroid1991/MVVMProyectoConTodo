@@ -20,36 +20,6 @@
             app:layout_constraintBaseline_toTopOf="parent" />
 
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="18dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="@+id/image_header"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <EditText
-                android:layout_width="252dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/search_text_background"
-                android:hint="@string/enter_character_name"
-                android:includeFontPadding="false"
-                android:minHeight="48dp"
-                android:textColor="@color/colorAccent"
-                android:textSize="25sp"
-                android:textStyle="bold" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:background="@drawable/button_shape"
-                android:text="@string/search" />
-
-        </LinearLayout>
-
         <View
             android:id="@+id/viewSupporter"
             android:layout_width="1dp"
