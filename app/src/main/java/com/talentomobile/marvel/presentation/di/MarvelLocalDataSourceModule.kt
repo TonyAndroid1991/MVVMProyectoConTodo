@@ -9,6 +9,8 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
+
+/**Module for retrieving Marvel characters*/
 @Module
 @InstallIn(SingletonComponent::class)
 class MarvelLocalDataSourceModule {

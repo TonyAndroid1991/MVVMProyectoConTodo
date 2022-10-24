@@ -17,4 +17,12 @@ interface ApiService {
         @Query("hash") hash: String = Constants.hash(),
         @Query("offset") offset: String = Constants.OFFSET): Response<AllCharactersResponse>
 
+    @GET("characters")
+    suspend fun getAllMarvelCharacters(
+        @Query("name") characterName: String,
+        @Query("limit") limit: Int = Constants.LIMIT,
+        @Query("apikey") apiKey: String = BuildConfig.API_KEY,
+        @Query("ts") ts: String = Constants.timeStamp,
+        @Query("hash") hash: String = Constants.hash(),
+        @Query("offset") offset: String = Constants.OFFSET): Response<AllCharactersResponse>
 }

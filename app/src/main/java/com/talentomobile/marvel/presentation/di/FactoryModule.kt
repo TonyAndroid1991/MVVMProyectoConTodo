@@ -2,6 +2,7 @@ package com.talentomobile.marvel.presentation.di
 
 import android.app.Application
 import com.talentomobile.marvel.domain.usecases.GetAllCharactersUseCase
+import com.talentomobile.marvel.domain.usecases.GetCharacterFromNameUseCase
 import com.talentomobile.marvel.domain.usecases.GetCharactersFromDataBaseUseCase
 import com.talentomobile.marvel.presentation.ui.HomeViewModelFactory
 import dagger.Module
@@ -19,11 +20,13 @@ class FactoryModule {
     fun providesHomeViewModuleFactory(
         getAllCharactersUseCase: GetAllCharactersUseCase,
         getCharactersFromDataBaseUseCase: GetCharactersFromDataBaseUseCase,
+        getCharacterFromNameUseCase: GetCharacterFromNameUseCase,
         context: Application
     ): HomeViewModelFactory {
         return HomeViewModelFactory(
             getAllCharactersUseCase,
             getCharactersFromDataBaseUseCase,
+            getCharacterFromNameUseCase,
             context
         )
     }

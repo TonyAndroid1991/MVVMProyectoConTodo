@@ -2,6 +2,7 @@ package com.talentomobile.marvel.presentation.di
 
 import com.talentomobile.marvel.domain.repository.MarvelRepository
 import com.talentomobile.marvel.domain.usecases.GetAllCharactersUseCase
+import com.talentomobile.marvel.domain.usecases.GetCharacterFromNameUseCase
 import com.talentomobile.marvel.domain.usecases.GetCharactersFromDataBaseUseCase
 import dagger.Module
 import dagger.Provides
@@ -23,5 +24,11 @@ class MarvelUseCasesModule {
     @Provides
     fun providesGetCharactersFromDataBaseUseCase(marvelRepository: MarvelRepository): GetCharactersFromDataBaseUseCase {
         return GetCharactersFromDataBaseUseCase(marvelRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesGetCharacterFromNameUseCase(marvelRepository: MarvelRepository): GetCharacterFromNameUseCase {
+        return GetCharacterFromNameUseCase(marvelRepository)
     }
 }

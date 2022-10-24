@@ -5,4 +5,5 @@ import retrofit2.Response
 
 interface MarvelRemoteDataSource {
     suspend fun getAllCharactersFromApi(): Response<AllCharactersResponse>
+    suspend fun getCharacterFromName(name: String):Response<AllCharactersResponse>
 }

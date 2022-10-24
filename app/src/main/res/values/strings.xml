@@ -9,6 +9,7 @@
     <string name="comics">Comics:</string>
     <string name="example">Example</string>
     <string name="description">Description: %s</string>
+    <string name="character_not_found">Character not found</string>
     <string name="no_description_was_found">No description was found</string>
 
 </resources>

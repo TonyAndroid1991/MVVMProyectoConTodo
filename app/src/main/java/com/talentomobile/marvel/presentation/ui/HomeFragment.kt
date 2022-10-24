@@ -1,6 +1,7 @@
 package com.talentomobile.marvel.presentation.ui
 
 import android.os.Bundle
+import android.os.Message
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -62,13 +63,64 @@ class HomeFragment : Fragment() {
 
         homeRecyclerAdapter.setOnItemClickListener {
             val bundle = Bundle().apply {
-                putSerializable(BUNDLE_STRING_VALUE,it)
+                putSerializable(BUNDLE_STRING_VALUE, it)
             }
-           this.findNavController().navigate(
+            this.findNavController().navigate(
                 R.id.action_homeFragmentFragment_to_marvelCharacterDetailFragment,
                 bundle
             )
         }
+
+        binding.homeButton.setOnClickListener {
+            getCharacterFromName()
+        }
+    }
+
+    private fun getCharacterFromName() {
+        val characterName = binding.inputText.text
+        if (characterName.toString().isNotEmpty()) {
+            viewModel.getCharacterFromName(characterName.toString())
+            viewModel.getCharacterFromNameLiveData.observe(viewLifecycleOwner) { marvelCharacterEvent ->
+                marvelCharacterEvent.getContentIfNotHandled().let { marvelCharacterResource ->
+                    if (marvelCharacterResource != null) {
+                        when (marvelCharacterResource) {
+                            is Resource.Loading -> {
+                                showProgressBar()
+                                if (marvelCharacterResource.data?.id == null) {
+                                    hideProgressBar()
+                                    showToast(R.string.character_not_found.toString())
+                                }
+                            }
+
+                            is Resource.Success -> {
+                                hideProgressBar()
+                                val marvelCharacter = marvelCharacterResource.data
+                                val bundle = Bundle().apply {
+                                    putSerializable(BUNDLE_STRING_VALUE, marvelCharacter)
+                                }
+                                this.findNavController().navigate(
+                                    R.id.action_homeFragmentFragment_to_marvelCharacterDetailFragment,
+                                    bundle
+                                )
+                            }
+                            is Resource.Error -> {
+                                showToast(R.string.error_no_data_available.toString())
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
+            Toast.makeText(activity, "You must input a name", Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(
+            activity,
+            message,
+            Toast.LENGTH_LONG
+        ).show()
     }
 
     private fun getResponse() {
@@ -89,11 +141,7 @@ class HomeFragment : Fragment() {
 
                 is Resource.Error -> {
                     hideProgressBar()
-                    Toast.makeText(
-                        activity,
-                        resources.getString(R.string.error_no_data_available),
-                        Toast.LENGTH_LONG
-                    ).show()
+                    showToast(R.string.error_no_data_available.toString())
                 }
             }
         }
@@ -103,7 +151,6 @@ class HomeFragment : Fragment() {
         binding.charactersRecycler.apply {
             layoutManager = LinearLayoutManager(activity)
             homeRecyclerAdapter.differ.submitList(marvelCharacters)
-
             adapter = homeRecyclerAdapter
         }
     }

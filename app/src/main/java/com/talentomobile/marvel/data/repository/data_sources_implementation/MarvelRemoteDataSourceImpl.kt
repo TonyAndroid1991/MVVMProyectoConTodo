@@ -10,4 +10,8 @@ class MarvelRemoteDataSourceImpl(private val apiService: ApiService) : MarvelRem
     override suspend fun getAllCharactersFromApi(): Response<AllCharactersResponse> {
         return  apiService.getAllMarvelCharacters()
     }
+
+    override suspend fun getCharacterFromName(name: String): Response<AllCharactersResponse> {
+        return apiService.getAllMarvelCharacters(name)
+    }
 }

@@ -11,13 +11,14 @@ import androidx.lifecycle.viewModelScope
 import com.talentomobile.marvel.data.models.MarvelCharacter
 import com.talentomobile.marvel.data.utils.Resource
 import com.talentomobile.marvel.domain.usecases.GetAllCharactersUseCase
+import com.talentomobile.marvel.domain.usecases.GetCharacterFromNameUseCase
 import com.talentomobile.marvel.domain.usecases.GetCharactersFromDataBaseUseCase
-
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
     private val getAllCharactersUseCase: GetAllCharactersUseCase,
     private val getCharactersFromDataBaseUseCase: GetCharactersFromDataBaseUseCase,
+    private val getCharacterFromNameUseCase: GetCharacterFromNameUseCase,
     private val context: Application
 ) : ViewModel() {
 
@@ -25,6 +26,11 @@ class HomeViewModel(
         MutableLiveData()
     val getAllCharactersLiveData: LiveData<Resource<List<MarvelCharacter>>> =
         _getAllCharactersResponseLiveData
+
+    private val _getCharacterFromNameResponseLiveData: MutableLiveData<Event< Resource<MarvelCharacter>>> =
+        MutableLiveData()
+    val getCharacterFromNameLiveData: LiveData<Event< Resource<MarvelCharacter>>> =
+        _getCharacterFromNameResponseLiveData
 
     fun getAllCharacters() = viewModelScope.launch {
         _getAllCharactersResponseLiveData.postValue(Resource.Loading())
@@ -43,6 +49,12 @@ class HomeViewModel(
         } else {
             _getAllCharactersResponseLiveData.postValue(Resource.Error())
         }
+    }
+
+    fun getCharacterFromName(characterName: String) = viewModelScope.launch {
+        _getCharacterFromNameResponseLiveData.postValue(Event(Resource.Loading()))
+        val character = getCharacterFromNameUseCase.getCharacterFromName(characterName)
+        _getCharacterFromNameResponseLiveData.postValue(Event(character))
     }
 
     fun isOnline(context: Context): Boolean {
