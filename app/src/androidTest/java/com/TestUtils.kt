@@ -1,4 +1,4 @@
-package com.talentomobile.marvel.presentation.utils
+package com
 
 import com.talentomobile.marvel.data.models.*
 
